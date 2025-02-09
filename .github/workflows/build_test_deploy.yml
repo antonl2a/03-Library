@@ -1,0 +1,29 @@
+name: Node.js CI
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout the repository
+      uses: actions/checkout@v4
+    - name: Use Node.js 20
+      uses: actions/setup-node@v4
+      with:
+        node-version: 20
+        cache: 'npm'
+    - name: Install npm modules
+    - run: npm install
+    - name: Run Backend
+    - run: npm run start-be &
+    - name: Run Frontend
+    - run: npm run start-fe &
+    - name: Execute UI tests
+      run: npm run test-ui
